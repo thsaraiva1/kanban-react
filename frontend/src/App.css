@@ -1,0 +1,152 @@
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background: #e6ddd6;
+  color: #1f1f1f;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.kanban {
+  width: 900px;
+
+  background: #beb3a9;
+  padding: 24px;
+  border-radius: 20px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.kanban h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.board {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.column {
+  background: #e6ddd6;
+  padding: 15px;
+  border-radius: 12px;
+
+  width: 250px;
+  min-height: 250px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.column h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.task {
+  background: #2b2b2b;
+  color: white;
+
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: grab;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task:active {
+  cursor: grabbing;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+.task:hover {
+  background: #1a1a1a;
+}
+
+.task:active {
+  transform: scale(0.97);
+}
+
+.delete-btn {
+  background: #4b4b4b;
+  border: none;
+
+  color: white;
+
+  padding: 5px 8px;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.15s, transform 0.05s;
+}
+
+.delete-btn:hover {
+  background: #1f1f1f;
+}
+
+.delete-btn:active {
+  transform: scale(0.9);
+}
+
+.input-area {
+  margin-top: 20px;
+
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.input-area input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+
+  background: #e6ddd6;
+  color: black;
+}
+
+.input-area button {
+  border: none;
+
+  background: #2b2b2b;
+  color: white;
+
+  padding: 10px 14px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition: background 0.15s, transform 0.05s;
+}
+
+.input-area button:hover {
+  background: #1a1a1a;
+}
+
+.input-area button:active {
+  transform: scale(0.96);
+}
