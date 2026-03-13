@@ -1,5 +1,5 @@
 import { useDroppable } from "@dnd-kit/core";
-import Task from "./Task";
+import Task from "./Task.jsx";
 
 function Column({ status, tasks, deleteTask }) {
 

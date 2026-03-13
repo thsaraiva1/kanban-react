@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DndContext } from "@dnd-kit/core";
-import Column from "./column.jsx";
+import Column from "./Column.jsx";
 import "./App.css";
 
 function App() {
