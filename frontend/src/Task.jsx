@@ -27,11 +27,7 @@ function Task({ task, deleteTask }) {
   onPointerDown={(e) => e.stopPropagation()}
   onClick={(e) => {
     e.stopPropagation();
-    deleteTask(task.id);
-  }}
->
-  ❌
-</button>
+    deleteTask(task.id);}}>❌</button>
 
     </div>
 

@@ -1,59 +1,43 @@
 
-const tasks = require("../models/tasksModel");
+const tasksModel = require("../models/tasksModel");
 
-function createTask(req, res){
- 
-    if (!req.body.title) {
-     return res.json({ error: "Título nao informado"});
-    }
-
-
-    const newTask = {
-        id: tasks.length + 1,
-        title: req.body.title,
-        status: "todo"
-    };
-    
-
-    tasks.push(newTask);
-
-    res.json(newTask);
-
+async function getTasks(req, res) {
+    const tasks = await tasksModel.getAllTasks();
+    res.json(tasks);
 }
 
-function deleteTask(req, res) {
+async function createTask(req, res){
+    const { title } = req.body;
 
-    const id = Number(req.params.id);
-
-    const index = tasks.findIndex(task => task.id === id);
-
-    if (index === -1) {
-        return res.json({ error: "Task nao deletada"});
+    if (!title) {
+        return res.status(400).json({ error: "Título obrigatório"});
     }
 
-    tasks.splice(index, 1);
+    const task = await tasksModel.createTask(title);
+
+    res.status(201).json(task);
+}
+
+async function deleteTask(req, res) {
+    const id = req.params.id;
+
+    await tasksModel.deleteTask(id);
 
     res.json({ message: "Task deletada"});
 }
 
-function getTasks(req, res){
-    res.json(tasks)
+async function updateTask(req, res) {
+    const id = req.params.id;
+    const { status } = req.body;
+
+    const task = await tasksModel.updateTask(id, status);
+
+    res.json(task);
 }
 
-function updateTask(req, res) {
-
-  const id = Number(req.params.id);
-
-  const task = tasks.find(task => task.id === id);
-
-  if (!task) {
-    return res.json({ error: "Task not found" });
-  }
-
-  task.status = req.body.status;
-
-  res.json(task);
-}
-
-
-module.exports = { getTasks, createTask, deleteTask, updateTask };
+module.exports = {
+    getTasks,
+    createTask,
+    deleteTask,
+    updateTask
+ };

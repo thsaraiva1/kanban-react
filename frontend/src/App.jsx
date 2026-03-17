@@ -2,30 +2,41 @@ import { useState } from "react";
 import { DndContext } from "@dnd-kit/core";
 import Column from "./Column.jsx";
 import "./App.css";
+import { useEffect } from "react";
+
 
 function App() {
 
-  const [tasks, setTasks] = useState([
-    { id: 1, title: "Primeira tarefa", status: "todo" }
-  ]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/tasks")
+    .then(res => res.json())
+    .then(data => setTasks(data));
+  }, []);
+
+  const [tasks, setTasks] = useState([]);
 
   const [newTask, setNewTask] = useState("");
 
   const statuses = ["todo", "doing", "done"];
 
-  function addTask() {
+  async function addTask() {
 
     if (!newTask.trim()) return;
 
-    const task = {
-      id: Date.now(),
-      title: newTask,
-      status: "todo"
-    };
+    const response = await fetch('http://localhost:5000/tasks', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+    },
+      body: JSON.stringify({ title: newTask }),
+  });
 
-    setTasks([...tasks, task]);
+    const createdTask = await response.json();
+
+    setTasks([...tasks, createdTask]);
     setNewTask("");
-  }
+}
 
   function deleteTask(id) {
     setTasks(tasks.filter(task => task.id !== id));
@@ -72,7 +83,13 @@ function App() {
         <input
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              addTask();
+            }
+          }}
           placeholder="Nova tarefa"
+            
         />
 
         <button onClick={addTask}>
